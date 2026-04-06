@@ -1,32 +1,35 @@
 package Online.Food.Ordering.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
+@Entity
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
-    private User customer;
+    @ManyToOne
+    @JsonIgnore
+    private Cart cart;
 
-    private long total;
+    @ManyToOne
+    private Food food;
 
-    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<CartItem> item = new ArrayList<>();
+    private int quantity;
 
+    private List<String> ingredients;
 
+    private Long totalprice;
 
 
 }

@@ -1,9 +1,6 @@
-package Online.Food.Ordering;
+package Online.Food.Ordering.model;
 
-
-import Online.Food.Ordering.model.Address;
-import Online.Food.Ordering.model.Restaurant;
-import Online.Food.Ordering.model.User;
+import Online.Food.Ordering.OrderItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,33 +14,35 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "orders")
 public class Order {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @ManyToOne
-    private User Customer;
+    @JoinColumn(name = "user_id")
+    private User customer;
 
     @JsonIgnore
     @ManyToOne
     private Restaurant restaurant;
 
-    private Long TotalAmount;
+    private Long totalAmount;
 
-    private String OrderStatus;
+    private String orderStatus;
 
-    private Date CreatedAt;
+    private Date createdAt;
 
     @ManyToOne
-    private Address DeliveryAddress;
+    private Address deliveryAddress;
 
     @OneToMany
     private List<OrderItem> items;
 
     private int totalItem;
 
-    private int totalprice;
+    private int totalPrice;
 
 }
