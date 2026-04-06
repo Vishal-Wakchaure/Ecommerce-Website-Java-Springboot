@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,8 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private User_role role;
+    private User_role role = User_role.ROLE_CUSTOMER;
+    List<GrantedAuthority> authorities = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
